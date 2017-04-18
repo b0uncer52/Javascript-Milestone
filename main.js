@@ -1,32 +1,31 @@
 var height = document.getElementById("height");
 var character = document.getElementById("char");
-var display = document.getElementById("display");
-var submit = document.getElementById("submit");
-function output(event){
-	var treeHeight = parseInt(height.value);
-	var leaf = character.value;
-	display.innerHTML = "<br>"
-	if(!Number.isInteger(treeHeight)){
-		display.innerHTML += "Enter an Integer";
+var submitButton = document.getElementById("submit");
+var treeHeight;
+var leafType;
+
+function tree(h, t){
+	for (var i = 0; i < h; i++) {
+	console.log((" ").repeat((h - i) * t.length), t.repeat(1 + 2* i));
 	}
-	else if(leaf.length < 1) {
-		display.innerHTML += "Enter a String or Character";
-	}else{
-		for (var i = 1; i <= treeHeight; i++) {
-		//withspaces = space.repeat(height - i).repeat(character.length);
-		//display.innerHTML += withspaces;
-		display.innerHTML += leaf.repeat(i) + "<br>";
-		}
+}
+function submit(event) {
+	treeHeight = parseInt(height.value);
+	leafType = character.value;
+	if(!Number.isInteger(treeHeight)){
+		alert("Must enter a number");
+	}
+	else if(leafType.length < 1) {
+		alert("Enter a String or Character");
+	}else {
+		tree(treeHeight, leafType);
 	}
 }
 function enterEvent(event){
 	if(event.keyCode == 13){
-		output(event);
+		submit(event);
 	}
 }
-
-submit.addEventListener("click", output);
+submitButton.addEventListener("click", submit);
 height.addEventListener("keyup", enterEvent);
 character.addEventListener("keyup", enterEvent);
-// var withspaces;  This commented out stuff is what I would do if I didn't use the inline css to center
-// var space = "&nbsp";  But using css is much cleaner as it takes into account the different width of characters
